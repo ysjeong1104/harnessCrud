@@ -1,0 +1,27 @@
+== 프롬프트 1: 게시판 CRUD 구현 ==
+
+Next.js App Router 기반 게시판 CRUD를 구현해줘.
+조건:
+- TypeScript 사용
+- Prisma + SQLite 사용
+- Post 모델: id, title, content, createdAt, updatedAt
+- 목록, 상세, 등록, 수정, 삭제 구현
+- app/api/posts Route Handler 사용
+- Vitest 단위 테스트 추가
+- Playwright E2E 테스트 추가
+- npm run harness 통과가 최종 목표
+
+
+== 프롬프트 2: 사용자 인증 및 권한 추가 ==
+
+사용자 로그인 및 게시물 관련 기능 추가.
+조건:
+- post_user 모델: seq(auto-increment), user_name, user_email, user_pass, create_at
+- 로그인, 로그아웃, 사용자 정보 수정 (이름, 비밀번호 수정)
+- 게시물 작성시 작성하는 사용자 seq 추가되어야함
+- 게시물 목록에서 작성한 사용자 이름 확인
+- 게시물 수정, 삭제는 작성자만 가능
+- app/api/posts Route Handler 사용
+- Vitest 단위 테스트 추가
+- Playwright E2E 테스트 추가
+- npm run harness 통과가 최종 목표
