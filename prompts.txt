@@ -25,3 +25,25 @@ Next.js App Router 기반 게시판 CRUD를 구현해줘.
 - Vitest 단위 테스트 추가
 - Playwright E2E 테스트 추가
 - npm run harness 통과가 최종 목표
+
+
+== 프롬프트 3: 댓글 기능 추가 ==
+
+기존 게시판 CRUD 프로젝트에 댓글 기능을 추가해줘.
+
+조건:
+- Post : Comment = 1:N
+- 댓글 등록/삭제 가능
+- 게시글 상세 화면에서 댓글 목록 표시
+- 기존 게시판 CRUD 기능은 깨지면 안 됨
+- 관련 테스트 추가
+- npm run harness 통과 필수
+
+작업 방식:
+- 현재 구조를 먼저 파악
+- DB 모델 변경
+- API 추가
+- 화면 반영
+- 테스트 추가
+- npm run harness 실행
+- 실패 시 로그 기반으로 수정

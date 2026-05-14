@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPostById } from '@/lib/posts-service'
+import { getCommentsByPostId } from '@/lib/comment-service'
 import { getServerUser } from '@/lib/server-user'
 import DeleteButton from './DeleteButton'
+import CommentSection from './CommentSection'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -13,7 +15,11 @@ export default async function PostDetailPage({ params }: Props) {
   const postId = parseInt(id)
   if (isNaN(postId)) notFound()
 
-  const [post, user] = await Promise.all([getPostById(postId), getServerUser()])
+  const [post, user, comments] = await Promise.all([
+    getPostById(postId),
+    getServerUser(),
+    getCommentsByPostId(postId),
+  ])
   if (!post) notFound()
 
   const isAuthor = user?.seq === post.user_seq
@@ -36,6 +42,12 @@ export default async function PostDetailPage({ params }: Props) {
           {post.content}
         </div>
       </article>
+
+      <CommentSection
+        postId={post.id}
+        initialComments={comments}
+        currentUserSeq={user?.seq ?? null}
+      />
 
       <div className="mt-6 flex gap-3">
         <Link

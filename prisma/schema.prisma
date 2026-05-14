@@ -8,12 +8,13 @@ generator client {
 }
 
 model post_user {
-  seq        Int      @id @default(autoincrement())
+  seq        Int       @id @default(autoincrement())
   user_name  String
-  user_email String   @unique
+  user_email String    @unique
   user_pass  String
-  create_at  DateTime @default(now())
+  create_at  DateTime  @default(now())
   posts      Post[]
+  comments   Comment[]
 }
 
 model Post {
@@ -23,5 +24,16 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   user_seq  Int
+  author    post_user @relation(fields: [user_seq], references: [seq])
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  createdAt DateTime  @default(now())
+  post_id   Int
+  user_seq  Int
+  post      Post      @relation(fields: [post_id], references: [id], onDelete: Cascade)
   author    post_user @relation(fields: [user_seq], references: [seq])
 }

@@ -1,0 +1,14 @@
+== Prisma 스키마 변경 시 주의사항 ==
+
+Prisma 스키마를 변경한 후 `prisma generate`를 실행하면 반드시 .next 캐시를 삭제해야 합니다.
+
+원인:
+  Next.js 빌드 캐시(.next/)에 이전 버전의 Prisma 클라이언트가 컴파일된 상태로 남아 있기 때문입니다.
+  캐시를 삭제하지 않으면 서버가 구버전 Prisma 클라이언트를 사용해 500 오류가 발생합니다.
+
+처리 순서:
+  1. prisma/schema.prisma 수정
+  2. npx prisma db push (또는 db push --force-reset)
+  3. npx prisma generate
+  4. rm -rf .next  ← 반드시 실행
+  5. npm run harness
