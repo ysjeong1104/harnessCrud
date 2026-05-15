@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSessionFromRequest } from '@/lib/auth'
 import { getPostById, updatePost, deletePost } from '@/lib/posts-service'
+import { parseId } from '@/lib/api-utils'
 
 interface Context {
   params: Promise<{ id: string }>
-}
-
-function parseId(id: string) {
-  const n = parseInt(id)
-  return isNaN(n) ? null : n
 }
 
 export async function GET(_request: NextRequest, { params }: Context) {

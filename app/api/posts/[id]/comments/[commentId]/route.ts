@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSessionFromRequest } from '@/lib/auth'
 import { getCommentById, deleteComment } from '@/lib/comment-service'
+import { parseId } from '@/lib/api-utils'
 
 interface Context {
   params: Promise<{ id: string; commentId: string }>
-}
-
-function parseId(id: string) {
-  const n = parseInt(id)
-  return isNaN(n) ? null : n
 }
 
 export async function DELETE(request: NextRequest, { params }: Context) {
@@ -26,10 +22,7 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 
     await deleteComment(cid)
     return NextResponse.json({ message: '삭제되었습니다.' })
-  } catch (error: unknown) {
-    if ((error as { code?: string })?.code === 'P2025') {
-      return NextResponse.json({ error: '댓글을 찾을 수 없습니다.' }, { status: 404 })
-    }
+  } catch {
     return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 })
   }
 }
